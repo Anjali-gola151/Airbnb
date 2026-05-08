@@ -14,15 +14,12 @@ const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const LocalStrategy = require("passport-local").Strategy;
 const passport = require("passport");
-// const localstrategy = require("passport-local");
 const User = require("./models/user.js");
 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-
-    // await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust")
 const dbUrl = process.env.ATLASDB_URL;
 
 async function main () {
@@ -45,14 +42,6 @@ app.use(methodOverride("_method"));
 app.engine("ejs" , ejsMate);
 app.use(express.static(path.join(__dirname , "/public")));
 
-// const store = MongoStore.create({
-//     mongoUrl: dbUrl,
-//     crypto: {
-//         secret: "mysupersecreatecode",
-//     },
-//     touchAfter: 24 * 3600,
-
-// });
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
@@ -89,10 +78,6 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-// app.get("/" , (req , res) => {
-//     res.send("hi i am root");
-// })
-
 
 
 app.use((req , res , next) => {
@@ -116,7 +101,6 @@ app.use((req, res, next) => {
 app.use((err , req , res , next) => {
     let {statusCode = 500 , message ="Something went wrong!"} = err;
     res.status(statusCode).render("error.ejs" , {message});
-    // res.status(statusCode).send(message);
 });
 
 app.listen(8080 , ()=> {
