@@ -2,31 +2,9 @@ const Listing = require("../models/listing");
 const axios = require("axios");
 
 
-
-module.exports.index = async (req, res) => {  // index 
-    try {
-        const { category } = req.query;
-
-        let filter = {};
-
-        if (category && category !== "all") {
-            filter.category = category;
-        }
-
-        const allListings = await Listing.find(filter);
-
-        // API response
-        if (req.headers.accept.includes("application/json")) {
-            return res.json(allListings);
-        }
-
-        // EJS response
-        res.render("listings/index.ejs", { allListings });
-
-    } catch (err) {
-        console.log(err);
-        res.status(500).send("Server Error");
-    }
+module.exports.index = async (req, res) => {
+    const allListings = await Listing.find({});
+    res.render("listings/index.ejs", { allListings });
 };
 
 
