@@ -16,7 +16,7 @@ console.log("JS WORKING");
   })
 })();
 
-async function loadCategory(category) {
+window.loadCategory = async function(category) {
     const res = await fetch(`/listings?category=${category}`, {
         headers: {
             Accept: "application/json"
