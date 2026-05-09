@@ -41,6 +41,8 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.engine("ejs" , ejsMate);
 app.use(express.static(path.join(__dirname , "/public")));
+app.use(express.static("public"));
+app.use(express.static("public"));
 
 
 const store = MongoStore.create({
